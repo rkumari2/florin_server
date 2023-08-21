@@ -4,35 +4,35 @@ DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS suggestions;
 
 CREATE TABLE categories (
-    category_id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY,
     category VARCHAR(50) NOT NULL,
-    PRIMARY KEY (category_id)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE users (
-    user_id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    PRIMARY KEY (user_id)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE tokens (
-    token_id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     token CHAR(36) UNIQUE NOT NULL,
-    PRIMARY KEY (token_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE suggestions (
-    suggestion_id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY,
     category_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
     content VARCHAR(200) NOT NULL,
     user_id INT NOT NULL,
-    PRIMARY KEY (suggestion_id),
-    FOREIGN KEY (category_id) REFERENCES categories(category_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 
