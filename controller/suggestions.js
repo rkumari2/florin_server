@@ -35,8 +35,8 @@ async function showId(req, res) {
 async function create(req,res) {
 
 
-    if(!req.body.title){
-        throw new Error('You need a name to create a shark')
+    if(!req.body.title && !req.body.content){
+        throw new Error('You need a title and content to create a suggestion')
     }
 
     try{
