@@ -33,6 +33,12 @@ async function showId(req, res) {
 }
 
 async function create(req,res) {
+
+
+    if(!req.body.title){
+        throw new Error('You need a name to create a shark')
+    }
+
     try{
         const data = req.body
         const newSuggestion = await Suggestion.create(data)
