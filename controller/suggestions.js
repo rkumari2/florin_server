@@ -11,15 +11,24 @@ async function index(req,res) {
     }
 }
 
-async function show(req,res) {
+async function showCategory(req,res) {
     try {
-        const categoryName = req.params.name.toLowerCase()
-        const suggestion = await Suggestion.findByCategory(categoryName)
-        res.status(200).json(suggestion)
+        const categoryName = req.params.category.toLowerCase()
+        const suggestions = await Suggestion.findByCategory(categoryName)
+        res.status(200).json(suggestions)
 
     } catch(err) {
         res.status(404).json({ error: err.message })
+    }
+}
 
+async function showId(req, res) {
+    try {
+        const id = req.params.id
+        const suggestion = await Suggestion.findById(id)
+        res.status(200).json(suggestion)
+    } catch (err) {
+        res.status(404).json({ error: err.message })
     }
 }
 
@@ -65,5 +74,5 @@ async function destroy(req,res) {
 }
 
 module.exports = {
-    index, show, create, update, destroy
+    index, showCategory, create, update, destroy
 }
