@@ -28,4 +28,13 @@ class Suggestion {
         }
         return new Suggestion(response)
     }
+
+    static async findById (id) {
+        const response = await db.query('SELECT * FROM suggestions WHERE id = $1', [id])
+
+        if (response.rows.length === 0) {
+            throw new Error ('Unable to locate suggestion')
+        } 
+        return new Suggestion(response.rows[0])
+    }
 }
