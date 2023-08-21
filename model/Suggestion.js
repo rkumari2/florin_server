@@ -59,3 +59,5 @@ class Suggestion {
         return new Suggestion(response.rows[0])
     }
 }
+
+module.exports = Suggestion;
