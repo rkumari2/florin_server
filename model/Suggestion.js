@@ -53,4 +53,9 @@ class Suggestion {
 
         return new Suggestion(response.rows[0])
     } 
+
+    async destroy () {
+        const response = await db.query('DELETE FROM suggestions WHERE id= $1 RETURNING *', [this.id])
+        return new Suggestion(response.rows[0])
+    }
 }
