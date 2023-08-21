@@ -37,4 +37,11 @@ class Suggestion {
         } 
         return new Suggestion(response.rows[0])
     }
+
+    static async create (data) {
+        const { title, content } = data
+        const response = await db.query('INSERT INTO suggestions (title, content) VALUES ($1, $2) RETURNING *', [title, content])
+
+        return new Suggestion(response.rows[0])
+    }
 }
