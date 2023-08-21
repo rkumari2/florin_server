@@ -7,7 +7,6 @@ async function index(req,res) {
 
     } catch (err){
         res.status(500).json({ error:err.message })
-
     }
 }
 
@@ -24,26 +23,23 @@ async function showCategory(req,res) {
 
 async function showId(req, res) {
     try {
-        const id = req.params.id
+        const id = parseInt(req.params.id)
         const suggestion = await Suggestion.findById(id)
         res.status(200).json(suggestion)
+
     } catch (err) {
         res.status(404).json({ error: err.message })
     }
 }
 
 async function create(req,res) {
-    
-    
     try{
         const data = req.body
         const newSuggestion = await Suggestion.create(data)
         res.status(201).json(newSuggestion)
 
     } catch(err){
-        
-        res.status(400).json({ error: err.message})
-
+        res.status(400).json({ error: err.message })
     }
 }
 
@@ -54,10 +50,10 @@ async function update(req,res) {
         const suggestionToUpdate = await Suggestion.findById(id)
         const updatedSuggestion = await suggestionToUpdate.update(data)
         res.status(updatedSuggestion)
+
     } catch(err){
         res.status(404).send({error: err.message})
     }
-
 }
 
 
@@ -74,5 +70,5 @@ async function destroy(req,res) {
 }
 
 module.exports = {
-    index, showCategory, create, update, destroy
+    index, showCategory, showId, create, update, destroy
 }
