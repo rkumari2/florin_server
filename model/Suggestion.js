@@ -44,4 +44,13 @@ class Suggestion {
 
         return new Suggestion(response.rows[0])
     }
+
+    async update (data) {
+        const response = await db.query('UPDATE suggestions SET content = $1 WHERE id = $2 RETURNING *', [data.content, this.id])
+        if (response.rows.length !== 1) {
+            throw new Error ('Unable to locate title')
+        }
+
+        return new Suggestion(response.rows[0])
+    } 
 }
