@@ -19,4 +19,13 @@ class Suggestion {
             return response.rows.map(s => new Suggestion(s))
         }
     }
+
+    static async findByCategory (category) {
+        const response = await db.query('SELECT * FROM suggestions WHERE category_id = $1', [category])
+
+        if (response.rows.length === 0) {
+            throw new Error ('No suggestions available in this category')
+        }
+        return new Suggestion(response)
+    }
 }
