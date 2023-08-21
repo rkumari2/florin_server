@@ -7,36 +7,45 @@ async function index(req,res) {
 
     } catch (err){
         res.status(500).json({ error:err.message })
-
     }
 }
 
-async function show(req,res) {
+async function showCategory(req,res) {
     try {
-        const categoryName = req.params.name.toLowerCase()
-        const suggestion = await Suggestion.findByCategory(categoryName)
-        res.status(200).json(suggestion)
+        const categoryName = req.params.category.toLowerCase()
+        const suggestions = await Suggestion.findByCategory(categoryName)
+        res.status(200).json(suggestions)
 
     } catch(err) {
         res.status(404).json({ error: err.message })
+    }
+}
 
+async function showId(req, res) {
+    try {
+        const id = parseInt(req.params.id)
+        const suggestion = await Suggestion.findById(id)
+        res.status(200).json(suggestion)
+
+    } catch (err) {
+        res.status(404).json({ error: err.message })
     }
 }
 
 async function create(req,res) {
 
+
     if(!req.body.title){
         throw new Error('You need a name to create a shark')
     }
+
     try{
         const data = req.body
         const newSuggestion = await Suggestion.create(data)
         res.status(201).json(newSuggestion)
 
     } catch(err){
-        
-        res.status(400).json({ error: err.message})
-
+        res.status(400).json({ error: err.message })
     }
 }
 
@@ -47,10 +56,10 @@ async function update(req,res) {
         const suggestionToUpdate = await Suggestion.findById(id)
         const updatedSuggestion = await suggestionToUpdate.update(data)
         res.status(updatedSuggestion)
+
     } catch(err){
         res.status(404).send({error: err.message})
     }
-
 }
 
 
@@ -67,5 +76,5 @@ async function destroy(req,res) {
 }
 
 module.exports = {
-    index, show, create, update, destroy
+    index, showCategory, showId, create, update, destroy
 }
