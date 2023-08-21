@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require ('cors')
 const logger = require('morgan')
+const suggestionRoutes = require('./router/suggRouter')
 
 const app = express()
 app.use(cors())
@@ -14,5 +15,6 @@ app.get('/', (req, res) => {
     })
 })
 
+app.use('/suggestions', suggestionRoutes)
 
 module.exports = app;
