@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS tokens;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS suggestions;
+-- DROP TABLE IF EXISTS tokens;
+-- DROP TABLE IF EXISTS users;
+-- DROP TABLE IF EXISTS categories;
+-- DROP TABLE IF EXISTS suggestions;
 
 CREATE TABLE categories (
     id INT GENERATED ALWAYS AS IDENTITY,
@@ -54,4 +54,4 @@ VALUES
 
 INSERT INTO suggestions (category_id,title,content,user_id) 
 VALUES
-    (1,'Rubbish!','Man it''s so bad!',1);
+    (1,'Rubbish!','Man it''s so bad!',1), (2,'Trial Barbara!','Trial Barbara!',1);

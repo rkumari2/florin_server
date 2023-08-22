@@ -35,10 +35,6 @@ async function showId(req, res) {
 async function create(req,res) {
 
 
-    if(!req.body.title && !req.body.content){
-        throw new Error('You need a title and content to create a suggestion')
-    }
-
     try{
         const data = req.body
         const newSuggestion = await Suggestion.create(data)
@@ -51,11 +47,12 @@ async function create(req,res) {
 
 async function update(req,res) {
     try {
+        console.log("Line 50 controller")
         const id = parseInt(req.params.id)
         const data = req.body
         const suggestionToUpdate = await Suggestion.findById(id)
         const updatedSuggestion = await suggestionToUpdate.update(data)
-        res.status(updatedSuggestion)
+        res.status(201).json(updatedSuggestion)
 
     } catch(err){
         res.status(404).send({error: err.message})
