@@ -1,6 +1,7 @@
 const Category = require('../model/Category')
 
 
+
 async function index(req,res){
     try {
 
@@ -26,9 +27,9 @@ async function showId(req, res) {
 
 async function showSuggestion(req, res) {
     try {
-        const name = req.params.category.toLowerCase()
-        const suggestion = await Category.findById(id)
-        res.status(200).json(suggestion)
+        const id = parseInt(req.params.id)
+        const suggestions = await Category.findSuggestionByCategory(id)
+        res.status(200).json(suggestions)
 
     } catch (err) {
         res.status(404).json({ error: err.message })

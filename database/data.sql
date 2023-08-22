@@ -1,12 +1,14 @@
--- DROP TABLE IF EXISTS tokens;
--- DROP TABLE IF EXISTS users;
--- DROP TABLE IF EXISTS categories;
--- DROP TABLE IF EXISTS suggestions;
+DROP TABLE IF EXISTS suggestions;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS tokens;
+DROP TABLE IF EXISTS users;
+
+
 
 CREATE TABLE categories (
     id INT GENERATED ALWAYS AS IDENTITY,
     category VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (category)
 );
 
 CREATE TABLE users (
@@ -24,25 +26,28 @@ CREATE TABLE tokens (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE suggestions (
-    id INT GENERATED ALWAYS AS IDENTITY,
-    category_id INT NOT NULL,
-    title VARCHAR(50) NOT NULL,
-    content VARCHAR(200) NOT NULL,
-    user_id INT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (category_id) REFERENCES categories(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-
-
 INSERT INTO categories (category)
 VALUES 
     ('Public Services'),
     ('Recycling'),
     ('Landscape'),
     ('Skills');
+
+
+CREATE TABLE suggestions (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    category_name VARCHAR(50) NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(200) NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (category_name) REFERENCES categories(category),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+
+
 
 INSERT INTO users (username,password)
 VALUES
@@ -52,6 +57,6 @@ INSERT INTO tokens (user_id, token)
 VALUES 
     (1,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
-INSERT INTO suggestions (category_id,title,content,user_id) 
+INSERT INTO suggestions (category_name,title,content,user_id) 
 VALUES
-    (1,'Rubbish!','Man it''s so bad!',1), (2,'Trial Barbara!','Trial Barbara!',1);
+    ('Public Services','Rubbish!','Man it''s so bad!', 1), ('Recycling','Trial Barbara!','Trial Barbara!',1);

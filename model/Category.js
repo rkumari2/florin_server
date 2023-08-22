@@ -18,7 +18,7 @@ class Category {
     }
 
     static async findByCategoryId (id) {
-        const response = await db.query('SELECT * FROM suggestions WHERE category_id = $1', [this.id])
+        const response = await db.query('SELECT * FROM categories WHERE id = $1;', [id])
 
         if (response.rows.length === 0) {
             throw new Error ('Unable to locate category')
@@ -26,14 +26,18 @@ class Category {
         return new Category(response.rows[0])
     }
 
-    // static async findByCategory (category) {
-    //     const response = await db.query('SELECT * FROM suggestions WHERE category_id = $1', [category])
+    static async findSuggestionByCategory (category_id) {
+        const response = await db.query('SELECT * FROM suggestions WHERE category_id = $1', [category_id])
+        console.log(response)
 
-    //     if (response.rows.length === 0) {
-    //         throw new Error ('No suggestions available in this category')
-    //     }
-    //     return new Suggestion(response)
-    // }
+        if (response.rows.length === 0) {
+            throw new Error ('No suggestions available in this category')
+        }
+        console.log(new Category(response.rows))
+        return new Category(response.rows)
+    }
+
+
 
 
 }
