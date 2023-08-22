@@ -34,8 +34,6 @@ async function login (req, res) {
         } else {
             const token = await Token.create(user.id)
             res.status(200).json({authenticated: true, token: token.token})
-            console.log(token)
-            console.log(authenticated)
         }
     } catch (error) {
         res.status(401).json({error: error.message})
