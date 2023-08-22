@@ -21,12 +21,12 @@ class Suggestion {
     }
 
     static async findByCategory (category) {
-        const response = await db.query('SELECT * FROM suggestions WHERE category_id = $1', [category])
+        const response = await db.query('SELECT * FROM suggestions WHERE LOWER(category_name) = $1', [category])
 
         if (response.rows.length === 0) {
             throw new Error ('No suggestions available in this category')
         }
-        return new Suggestion(response)
+        return new Suggestion(response.rows[0])
     }
 
     static async findById (id) {
