@@ -1,8 +1,0 @@
-node_modules/
-.DS_Store
-.vscode/
-coverage/
-.env
-server/
-client/
-__test__/
