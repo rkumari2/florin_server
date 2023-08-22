@@ -24,6 +24,17 @@ async function showId(req, res) {
     }
 }
 
+async function showSuggestion(req, res) {
+    try {
+        const name = req.params.category.toLowerCase()
+        const suggestion = await Category.findById(id)
+        res.status(200).json(suggestion)
+
+    } catch (err) {
+        res.status(404).json({ error: err.message })
+    }
+}
+
 module.exports = {
-    index,showId
+    index,showId,showSuggestion
 }
