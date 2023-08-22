@@ -17,14 +17,14 @@ class Category {
         }
     }
 
-    // static async findByCategoryId (id) {
-    //     const response = await db.query('SELECT * FROM categories WHERE id = $1', [id])
+    static async findByCategoryId (id) {
+        const response = await db.query('SELECT * FROM categories WHERE id = $1', [id])
 
-    //     if (response.rows.length === 0) {
-    //         throw new Error ('Unable to locate category')
-    //     } 
-    //     return new Category(response.rows[0])
-    // }
+        if (response.rows.length === 0) {
+            throw new Error ('Unable to locate category')
+        } 
+        return new Category(response.rows[0])
+    }
 
     // static async findByCategory (category) {
     //     const response = await db.query('SELECT * FROM suggestions WHERE category_id = $1', [category])

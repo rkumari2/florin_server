@@ -16,7 +16,7 @@ async function index(req,res){
 async function showId(req, res) {
     try {
         const id = parseInt(req.params.id)
-        const category = await Category.findById(id)
+        const category = await Category.findByCategoryId(id)
         res.status(200).json(category)
 
     } catch (err) {
