@@ -4,7 +4,7 @@ const db = require('../database/connect')
 class Suggestion {
     constructor(data) {
         this.id = data.id
-        this.category_id = data.category_id
+        this.category_name = data.category_name
         this.title = data.title
         this.content = data.content
         this.user_id = data.user_id
@@ -41,8 +41,11 @@ class Suggestion {
     
 
     static async create (data) {
-        const { title, content } = data
-        const response = await db.query('INSERT INTO suggestions (title, content) VALUES ($1, $2) RETURNING *', [title, content])
+        const {category_name, title, content, user_id} = data
+        const response = await db.query(`
+        INSERT INTO suggestions(category_name, title, content, user_id)
+        VALUES ($1,$2,$3,$4) RETURNING *`, 
+        [category_name, title, content, user_id])
 
         return new Suggestion(response.rows[0])
     }
