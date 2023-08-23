@@ -20,7 +20,7 @@ CREATE TABLE tokens (
     id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     token CHAR(36) UNIQUE NOT NULL,
-    PRIMARY KEY (token_id),
+    PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -30,7 +30,7 @@ CREATE TABLE suggestions (
     title VARCHAR(50) NOT NULL,
     content VARCHAR(200) NOT NULL,
     user_id INT NOT NULL,
-    PRIMARY KEY (suggestion_id),
+    PRIMARY KEY (id),
     FOREIGN KEY (category_id) REFERENCES categories(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
