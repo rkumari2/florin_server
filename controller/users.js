@@ -1,12 +1,22 @@
 const bcrypt = require('bcrypt')
 
 const User = require ('../model/User')
-const Token = require('../model/Token')
+const Token = require('../model/Token');
+
 
 async function index (req, res) {
     try {
         const allUsers = await User.getAll();
         res.json(allUsers);
+    } catch (err) {
+        res.status(500).json({"error": err.message})
+    }
+}
+
+async function indexToken (req, res) {
+    try {
+        const tokens = await Token.getAllTokens();
+        res.json(tokens);
     } catch (err) {
         res.status(500).json({"error": err.message})
     }
@@ -40,6 +50,27 @@ async function login (req, res) {
     }
 }
 
+async function destroy (req, res) {
+    try {
+        const id = req.params.user_id
+        const tokenToDelete = await Token.getByUserId(id)
+        await tokenToDelete.destroy()
+        res.sendStatus(204)
+    } catch (error) {
+        res.status(404).send({error: error.message})
+    }
+}
+
+async function show (req, res) {
+    try {
+        const id = req.params.user_id
+        const token = await Token.getByUserId(id)
+        res.status(200).json(token)
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+}
+
 module.exports = {
-    register, login, index
+    register, login, index, indexToken, destroy, show
 }
