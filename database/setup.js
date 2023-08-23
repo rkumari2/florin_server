@@ -7,7 +7,6 @@ const sql = fs.readFileSync(__dirname + "/data.sql").toString();
 db.query(sql)
 // console.log('line 9 setup')
     .then(data => {
-        console.log('line 11 setup')
         db.end();
         console.log("Setup complete.");
     })

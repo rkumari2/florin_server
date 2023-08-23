@@ -25,7 +25,7 @@ app.use('/suggestions', suggestionRoutes)
 
 app.use('/categories', CategoryRouter)
 
-=======
+
 app.use('/users', userRoutes)
 
 

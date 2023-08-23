@@ -11,9 +11,7 @@ class Token {
     
     static async create (user_id) {
         const token = uuidv4()
-        console.log(token)
         const response = await db.query('INSERT INTO tokens (user_id, token) VALUES ($1, $2) RETURNING *', [user_id, token])
-        console.log(response)
         const newId = response.rows[0].id
         const newToken = await Token.getById(newId)
         return newToken
