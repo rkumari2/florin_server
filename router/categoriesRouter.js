@@ -10,4 +10,6 @@ categoryRouter.get('/:id', categoriesController.showId)
 categoryRouter.post('/:id/suggestions', categoriesController.create) // Is working 21/08/2023
 
 
+
+
 module.exports = categoryRouter
