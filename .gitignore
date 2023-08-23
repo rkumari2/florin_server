@@ -5,3 +5,5 @@ coverage/
 .env
 server/
 client/
+__test__/
+package-lock.json
