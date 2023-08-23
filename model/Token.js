@@ -9,6 +9,11 @@ class Token {
         this.token = token
     }
     
+    static async getAllTokens () {
+        const response = await db.query('SELECT * FROM tokens')
+        return response.rows.map(t => new Token(t))
+    }
+
     static async create (user_id) {
         const token = uuidv4()
         console.log(token)
@@ -28,6 +33,15 @@ class Token {
         }
     }
 
+    static async getByUserId (user_id) {
+        const response = await db.query('SELECT * FROM tokens WHERE user_id = $1', [user_id])
+        if (response.rows.length != 1) {
+            throw new Error("Unable to locate token by user_id.");
+        } else {
+            return new Token(response.rows[0]);
+        }
+    }
+
     static async getByToken(token) {
         const response = await db.query("SELECT * FROM tokens WHERE token = $1", [token]);
         if (response.rows.length != 1) {
@@ -37,7 +51,10 @@ class Token {
         }
     }
 
-    //implement destroy function everytime user clicks logout, deletes the token from the table associated to that user
+    async destroy() {
+        const response = await db.query ('DELETE FROM tokens WHERE user_id=$1 RETURNING *', [this.user_id])
+        return new Token(response.rows[0])
+    }
 }
 
 module.exports = Token;
