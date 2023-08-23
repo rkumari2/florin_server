@@ -26,8 +26,8 @@ class Category {
         return new Category(response.rows[0])
     }
 
-    static async findSuggestionByCategory (category_id) {
-        const response = await db.query('SELECT * FROM suggestions WHERE category_id = $1', [category_id])
+    static async findSuggestionByCategory(category_name) {
+        const response = await db.query('SELECT * FROM suggestions WHERE category_name = $1', [category_name])
         console.log(response)
 
         if (response.rows.length === 0) {

@@ -22,11 +22,12 @@ class Suggestion {
 
     static async findByCategory (category) {
         const response = await db.query('SELECT * FROM suggestions WHERE LOWER(category_name) = $1', [category])
+        console.log(response.rows)
 
         if (response.rows.length === 0) {
             throw new Error ('No suggestions available in this category')
         }
-        return new Suggestion(response.rows[0])
+        return response.rows.map(s => new Suggestion(s))
     }
 
     static async findById (id) {
@@ -37,14 +38,24 @@ class Suggestion {
         } 
         return new Suggestion(response.rows[0])
     }
+    
+    static async findSuggestionByCategory(category_id) {
+        const response = await db.query('SELECT * FROM  categories JOIN suggestions ON categories.category = suggestions.category_name WHERE categories.id = $1;', [category_id])
+        
 
+        if (response.rows.length === 0) {
+            throw new Error ('No suggestions available in this category')
+        }
+
+        return new Suggestion(response.rows[0])
+    }
     
 
     static async create (data) {
-        const {category_name, title, content, user_id} = data
+        const { category_name, title, content, user_id} = data
         const response = await db.query(`
         INSERT INTO suggestions(category_name, title, content, user_id)
-        VALUES ($1,$2,$3,$4) RETURNING *`, 
+        VALUES ($1,$2,$3, $4) RETURNING *`, 
         [category_name, title, content, user_id])
 
         return new Suggestion(response.rows[0])

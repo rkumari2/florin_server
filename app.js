@@ -9,6 +9,7 @@ app.use(cors())
 app.use(express.json())
 app.use(logger('dev'))
 
+
 app.get('/', (req, res) => {
     res.json({
         name: "Florin Council", 
@@ -19,4 +20,6 @@ app.get('/', (req, res) => {
 app.use('/suggestions', suggestionRoutes)
 app.use('/categories', CategoryRouter)
 
+
 module.exports = app;
+

@@ -1,4 +1,6 @@
 const Category = require('../model/Category')
+const Suggestion = require('../model/Suggestion')
+
 
 
 
@@ -9,7 +11,7 @@ async function index(req,res){
     res.status(200).json(categories)
 
     } catch(err){
-    res.status(500).json({error: err.message} )
+    res.status(502).json({error: err.message} )
 
     }
 }
@@ -25,10 +27,10 @@ async function showId(req, res) {
     }
 }
 
-async function showSuggestion(req, res) {
+async function showSuggestions(req, res) {
     try {
         const id = parseInt(req.params.id)
-        const suggestions = await Category.findSuggestionByCategory(id)
+        const suggestions = await Suggestion.findSuggestionByCategory(id)
         res.status(200).json(suggestions)
 
     } catch (err) {
@@ -36,6 +38,20 @@ async function showSuggestion(req, res) {
     }
 }
 
+async function create(req,res) {
+
+
+    try{
+        const data = req.body
+        const newSuggestion = await Suggestion.create(data)
+        console.log(newSuggestion)
+        res.status(201).json(newSuggestion)
+
+    } catch(err){
+        res.status(400).json({ error: err.message })
+    }
+}
+
 module.exports = {
-    index,showId,showSuggestion
+    index,showId,showSuggestions, create
 }
