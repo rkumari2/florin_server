@@ -3,4 +3,5 @@ node_modules/
 .vscode/
 coverage/
 .env
-demo/
+server/
+client/
