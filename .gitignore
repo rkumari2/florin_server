@@ -6,3 +6,4 @@ coverage/
 server/
 client/
 __test__/
+package-lock.json
