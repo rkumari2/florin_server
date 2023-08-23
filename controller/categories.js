@@ -31,6 +31,7 @@ async function showSuggestions(req, res) {
     try {
         const id = parseInt(req.params.id)
         const suggestions = await Suggestion.findSuggestionByCategory(id)
+        console.log(suggestions)
         res.status(200).json(suggestions)
 
     } catch (err) {
