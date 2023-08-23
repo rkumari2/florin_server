@@ -5,11 +5,10 @@ const suggestionsController = require('../controller/suggestions')
 
 
 
-router.get('/', suggestionsController.index) // Is working 21/08/2023
-router.get('/:name',suggestionsController.showCategory)// Is working 21/08/2023
-// router.get('/:id', suggestionsController.showId) // working
-router.patch('/:id', suggestionsController.update) // Is working 21/08/2023
-router.delete('/:id', suggestionsController.destroy) // Is working 21/08/2023
+router.get('/', suggestionsController.index) // works 
+router.get('/:name',suggestionsController.showCategory) //works 
+router.patch('/:id', suggestionsController.update) // works
+router.delete('/:id', suggestionsController.destroy1) // works
 
 
 

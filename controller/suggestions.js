@@ -49,7 +49,7 @@ async function update(req,res) {
 }
 
 
-async function destroy(req,res) {
+async function destroy1(req,res) {
     try {
         const suggestionId = parseInt(req.params.id)
         const suggestionToDelete = await Suggestion.findById(suggestionId)
@@ -62,5 +62,5 @@ async function destroy(req,res) {
 }
 
 module.exports = {
-    index, showId, showCategory, update, destroy
+    index, showId, showCategory, update, destroy1
 }
