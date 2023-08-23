@@ -30,7 +30,7 @@ describe('Suggestion model', () => {
             expect(suggestions).toHaveLength(2)
         })
 
-        it.only('throws an error on db query error', async() => {
+        it('throws an error on db query error', async() => {
             jest.spyOn(db, 'query').mockRejectedValue(new Error('No suggestions available'))
             try {
                 await Suggestion.getAll()
@@ -39,6 +39,7 @@ describe('Suggestion model', () => {
                 expect(error.message).toBe('No suggestions available')
               }
         })     
+        
     })
 
     describe('findById', () => {

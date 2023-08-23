@@ -12,7 +12,6 @@ class Category {
         if (response.rows.length === 0) {
             throw new Error ('No categories available')
         } else {
-            console.log(response)
             return response.rows.map(c => new Category(c))
         }
     }
@@ -33,7 +32,6 @@ class Category {
         if (response.rows.length === 0) {
             throw new Error ('No suggestions available in this category')
         }
-        console.log(new Category(response.rows))
         return new Category(response.rows)
     }
 

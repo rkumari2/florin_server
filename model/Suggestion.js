@@ -47,7 +47,7 @@ class Suggestion {
             throw new Error ('No suggestions available in this category')
         }
 
-        return new Suggestion(response.rows[0])
+        return response.rows.map(s => new Suggestion(s))
     }
     
 
