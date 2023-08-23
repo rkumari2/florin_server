@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watchAll",
+    "coverage": "jest --testPathPattern=/unit/ --coverage",
     "start": "node index.js",
     "dev": "nodemon -L index.js",
     "setup-db": "node ./database/setup.js"
@@ -22,6 +23,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "jest": "^29.6.3",
     "nodemon": "^3.0.1"
   }
 }
