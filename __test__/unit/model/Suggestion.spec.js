@@ -54,7 +54,7 @@ describe('Suggestion model', () => {
         })
 
         it ('should throw an error on db query error', async () => {
-            jest.spyOn(db, 'query').mockRejectedValue()
+            jest.spyOn(db, 'query').mockRejectedValue(new Error('does not exist'))
 
             try {
                 await Suggestion.findById(1)
@@ -65,5 +65,39 @@ describe('Suggestion model', () => {
             }
         })
     })
+    
+    describe('findByCategory', () => {
+        it('resolves with suggestions for a valid category_id', async () => {
+            const category_id = 2;
+            const expectedQuery = 'SELECT * FROM  categories JOIN suggestions ON categories.category = suggestions.category_name WHERE categories.id = $1;';
+            const expectedParams = [category_id];
+
+            let data = [
+                { id: 1, category_name: 'recycling', title: 'something', content: 'something else' },
+                { id: 2, category_name: 'recycling', title: 'another thing', content: 'another content' },
+            ];
+            jest.spyOn(db, 'query').mockResolvedValueOnce({ rows: data });
+
+            const result = await Suggestion.findSuggestionByCategory(category_id);
+
+            expect(db.query).toHaveBeenCalledWith(expectedQuery, expectedParams);
+            expect(result).toEqual(data);
+        });
+
+        it('should throw an error on db query error', async() => {
+            jest.spyOn(db, 'query').mockRejectedValue(new Error('no suggestions available'))
+
+            try {
+                await Suggestion.findSuggestionByCategory(2)
+            } catch (error) {
+                expect(error).toBeTruthy()
+                expect(error).toBeDefined()
+                expect(error.message).toBe('no suggestions available')
+            }
+        })
+          
+    })
+
+    // create, update and destroy left to do 
 
 })

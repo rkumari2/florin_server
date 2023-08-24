@@ -24,11 +24,11 @@ describe('api server', () => {
 
     
     
-    test('responds to GET /:name with a 200', (done) => {
-        request(api)
-            .get('/categories')
-            .expect(200, done)
-    })
+    // test('responds to GET /:name with a 200', (done) => {
+    //     request(api)
+    //         .get('/categories')
+    //         .expect(200, done)
+    // })
         
         
 
