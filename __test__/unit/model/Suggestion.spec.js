@@ -30,16 +30,16 @@ describe('Suggestion model', () => {
             expect(suggestions).toHaveLength(2)
         })
 
-        // it('throws an error on db query error', async() => {
-        //     jest.spyOn(db, 'query').mockResolvedValueOnce(new Error('No suggestions available'))
-        //     try {
-        //         await Suggestion.getAll()
-        //       } catch (error) {
-        //         expect(error).toBeDefined()
-        //         expect(error.message).toBe('No suggestions available')
-        //       }
-        // })     
-        // the function above is recieving "Cannot read properties of undefined (reading 'length')" as an error message 
+        it('throws an error on db query error', async() => {
+            jest.spyOn(db, 'query').mockRejectedValue(new Error('No suggestions available'))
+            try {
+                await Suggestion.getAll()
+              } catch (error) {
+                expect(error).toBeDefined()
+                expect(error.message).toBe('No suggestions available')
+              }
+        })     
+        
     })
 
     describe('findById', () => {
@@ -53,18 +53,17 @@ describe('Suggestion model', () => {
             expect(result.title).toBe('something')
         })
 
-        // it ('should throw an error on db query error', async () => {
-        //     jest.spyOn(db, 'query').mockResolvedValueOnce()
+        it ('should throw an error on db query error', async () => {
+            jest.spyOn(db, 'query').mockRejectedValue()
 
-        //     try {
-        //         await Suggestion.findById(1)
-        //     } catch(error) {
-        //         expect(error).toBeTruthy()
-        //         expect(error).toBeDefined()
-        //         expect(error.message).toBe('does not exist')
-        //     }
-        // })
-        // SAME ERROR AS ABOVW
+            try {
+                await Suggestion.findById(1)
+            } catch(error) {
+                expect(error).toBeTruthy()
+                expect(error).toBeDefined()
+                expect(error.message).toBe('does not exist')
+            }
+        })
     })
 
 })
