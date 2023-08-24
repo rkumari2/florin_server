@@ -32,7 +32,18 @@ async function showId(req, res) {
     }
 }
 
+async function create(req,res) {
 
+
+    try{
+        const data = req.body
+        const newSuggestion = await Suggestion.create(data)
+        res.status(201).json(newSuggestion)
+
+    } catch(err){
+        res.status(400).json({ error: err.message })
+    }
+}
 
 async function update(req,res) {
     try {
@@ -62,5 +73,5 @@ async function destroy(req,res) {
 }
 
 module.exports = {
-    index, showId, showCategory, update, destroy
+    index, showId, showCategory, create, update, destroy
 }

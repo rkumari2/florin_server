@@ -1,14 +1,18 @@
 const express = require('express')
 const cors = require ('cors')
 const logger = require('morgan')
+
 const suggestionRoutes = require('./router/suggRouter')
 const CategoryRouter = require('./router/categoriesRouter')
 
 const app = express()
-app.use(cors())
+
 app.use(express.json())
 app.use(logger('dev'))
+app.use(cors())
 
+app.use('/suggestions', suggestionRoutes)
+app.use('/categories', CategoryRouter)
 
 app.get('/', (req, res) => {
     res.json({
@@ -17,8 +21,6 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/suggestions', suggestionRoutes)
-app.use('/categories', CategoryRouter)
 
 
 module.exports = app;
