@@ -54,6 +54,3 @@ describe('User model', () => {
         })
     })
 })
-
-
-// something 
