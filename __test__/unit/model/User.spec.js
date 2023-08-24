@@ -4,7 +4,7 @@ const db = require('../../../database/connect')
 
 describe('User model', () => {
 
-    // BeforeEach(() => jest.clearAllMocks())
+    BeforeEach(() => jest.clearAllMocks())
 
     describe('class', () => {
         it('exists', () => {
