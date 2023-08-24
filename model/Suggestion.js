@@ -12,7 +12,7 @@ class Suggestion {
 
     static async getAll () {
         const response = await db.query('SELECT * FROM suggestions;')
-        if (response.rows.length === 0) {
+        if ( response.rows.length === 0) {
             throw new Error ('No suggestions available')
         } else {
             console.log(response)
@@ -47,7 +47,7 @@ class Suggestion {
             throw new Error ('No suggestions available in this category')
         }
 
-        return new Suggestion(response.rows[0])
+        return response.rows.map(s => new Suggestion(s))
     }
     
 
