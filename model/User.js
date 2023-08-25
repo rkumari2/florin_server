@@ -9,7 +9,6 @@ class User {
 
     static async getAll() {
         const response = await db.query('SELECT * FROM users')
-        console.log(response)
         return response.rows.map(u => new User(u))
     }
 

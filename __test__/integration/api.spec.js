@@ -5,41 +5,42 @@ const app = require('../../app')
 let api;
 
 describe('api server', () => {
-    beforeAll(()=> {
-        api = app.listen(4000, () => {
-            console.log('Test server running in port 4000')
-        })
+    let api;
+  
+    beforeAll(() => {
+      api = app.listen(4000, () => {
+        console.log('Test server running in port 4000')
+      })
     })
-
+  
     afterAll((done) => {
-        console.log('Gracefully stopping the test server')
-        api.close(done)
+      console.log('Gracefully stopping the test server')
+      api.close(done)
     })
-
-    test('it respons to GET/ with status 200', (done)=> {
-        request(api)
-          .get('/')
-          .expect(200, done)
+  
+    test('responds to GET / with status 200', (done) => {
+      request(api)
+        .get('/')
+        .expect(200, done)
     })
-
-    
-    
-    // test('responds to GET /:name with a 200', (done) => {
-    //     request(api)
-    //         .get('/categories')
-    //         .expect(200, done)
-    // })
-        
-        
-
-          
-          // test('responds to invalid method request with 405', (done) => {
-          //     request(api).post('/:category').expect(405,done) 
-          // })
-      
-          // test('responds to DELETE /:id with status 204', (done) => {
-          //     request(api).delete('/suggestions/1').expect(204,done)
-          //   })
-          
-
-})
+  
+    test('responds to GET /suggestions with status 200', (done) => {
+      request(api)
+        .get('/suggestions')
+        .expect(200,done)
+    })
+  
+    test('responds to GET /suggestions/:name with a 200', (done) => {
+      request(api)
+        .get('/suggestions/recycling')
+        .expect(200, done)
+    })
+  
+    test('responds to a unknown category :name with a 404', (done) => {
+      request(api)
+        .get('/suggestions/sddsfd')
+        .expect(404)
+        .expect({ error: 'No suggestions available in this category!' }, done)
+    })
+  
+  })
