@@ -15,15 +15,12 @@ class Suggestion {
         if ( response.rows.length === 0) {
             throw new Error ('No suggestions available')
         } else {
-            console.log(response)
             return response.rows.map(s => new Suggestion(s))
         }
     }
 
     static async findByCategory (category) {
         const response = await db.query('SELECT * FROM suggestions WHERE LOWER(category_name) = $1', [category])
-        console.log(response.rows)
-
         if (response.rows.length === 0) {
             throw new Error ('No suggestions available in this category')
         }
